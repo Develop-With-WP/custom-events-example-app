@@ -44,6 +44,19 @@ const addPerson = ( state, person ) => {
     );
 
     Events.emit( 'updatePeople', newState );
+    return newState;
+}
+
+const removePerson = ( state, person ) => {
+    const newState = Object.assign(
+        state,
+        {
+            people: state.people.filter( ( item ) => item !== person )
+        }
+    );
+
+    Events.emit( 'updatePeople', newState );
+    return newState;
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
@@ -51,6 +64,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
     setTimeout( () => {
         state = addPerson( state, 'John Johnson' );
+    }, 2000 );
+
+    setTimeout( () => {
+        state = addPerson( state, 'Tommy Thompson' );
+        state = removePerson( state, 'Bobby Bryant' );
     }, 2000 );
 
 } );
